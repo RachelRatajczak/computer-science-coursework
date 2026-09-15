@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Skills</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                background-color: #eee8e8;
+            }
+
+            /* Prevents layout issues due to columns having floating behavior */
+            .row::after {
+                content: "";
+                clear: both;
+                display: table;
+            }
+
+            [class*="col-"] {
+                float: left;
+                padding: 15px;
+            }   
+
+            /* For mobile phones: */
+                [class*="col-"] {
+                width: 100%;
+            }
+
+            /* For tablets: */
+            @media only screen and (min-width: 768px) {
+                .col-s-1 {width: 8.33%;}
+                .col-s-2 {width: 16.66%;}
+                .col-s-3 {width: 25%;}
+                .col-s-4 {width: 33.33%;}
+                .col-s-5 {width: 41.66%;}
+                .col-s-6 {width: 50%;}
+                .col-s-7 {width: 58.33%;}
+                .col-s-8 {width: 66.66%;}
+                .col-s-9 {width: 75%;}
+                .col-s-10 {width: 83.33%;}
+                .col-s-11 {width: 91.66%;}
+                .col-s-12 {width: 100%;}
+            }
+
+            /* For desktop: */
+            @media only screen and (min-width: 992px) {
+                .col-1 {width: 8.33%;}
+                .col-2 {width: 16.66%;}
+                .col-3 {width: 25%;}
+                .col-4 {width: 33.33%;}
+                .col-5 {width: 41.66%;}
+                .col-6 {width: 50%;}
+                .col-7 {width: 58.33%;}
+                .col-8 {width: 66.66%;}
+                .col-9 {width: 75%;}
+                .col-10 {width: 83.33%;}
+                .col-11 {width: 91.66%;}
+                .col-12 {width: 100%;}
+            }
+
+             /* nav Bar */
+             @media screen and (max-width: 600px){
+                ul.navBar li {
+                    float: none; 
+                    width: 100%;  
+                    text-align: left;  
+                }
+
+                ul.navBar li.right {
+                    float: none; /* Prevent right float on small screens */
+                }
+
+                ul.navBar li a {
+                    padding: 10px 15px;  /* Adjust padding for smaller screens */
+                }
+            }
+
+            html {
+                font-family: Georgia, 'Times New Roman', Times, serif;
+            }
+
+            .header {
+                padding: 10px;
+                color: #000000;
+                text-align: center; 
+                vertical-align: text-top; 
+                background-image: url('gallery/banner.png');
+                background-size: cover;
+                background-position: center;
+                height: 150px; 
+                display: flex; 
+                flex-direction: column; 
+                justify-content: flex-start; 
+                text-align: center; 
+            }
+
+            ul.navBar {
+                list-style-type: none;
+                margin: 5px;
+                padding: 0;
+                overflow: hidden;
+                background-color: #ddadad;
+            }
+
+            ul.navBar li{float: left;}
+
+            ul.navBar li a{
+                display: block;
+                color: #000000;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+            ul.navBar li a:hover:not(.active){
+                background-color: #d6c7c7;
+            }
+
+            ul.navBar li a.active {
+                background-color: #d6c7c7;
+            }
+
+            ul.navBar li.right {
+                float: right;
+            }
+
+            .aside {
+                
+                padding: 15px;
+                color: #19291D;
+                text-align: left;
+            }
+
+            .aside h2{
+                border: 5px solid #22495a;
+                background-color: #9fb9bf;
+                text-align: center;
+            }
+
+            .aside h3 {
+                background-color: #ddadad;
+                text-align: center;
+            }
+
+            .footer {
+                background-color: #d6c7c7;
+                display: flex;
+                align-items: center; 
+                text-align: left;
+                flex-wrap: wrap; 
+                gap: 10px; 
+                color: #000000;
+                text-align: left;
+                font-size: 12px;
+                padding: 15px;
+                clear: both; 
+            }
+
+            .footer img {
+                max-width: 100%; /* Ensure image is responsive */
+                height: auto; /* Maintain aspect ratio */
+                width: 150px; 
+                margin-right: 10px; 
+            }
+
+            .footer ul {
+                list-style-type: none;
+            }
+
+            .education h2 {
+                border: 5px solid #22495a;
+                background-color: #9fb9bf;
+                text-align: center;
+            }
+
+            .education img {
+                float: left;
+                width: 100px; 
+                height: auto; /* Maintain aspect ratio */
+            }
+
+            .education table {
+                width: 100%;
+            }
+
+            .education td img {
+                vertical-align: middle; /* Align the text and image in the middle of the cell */
+                border-radius: 50%; 
+                overflow: hidden; 
+                object-position: center;  
+            }
+
+            .education td {
+                font-size: 26px;
+            }
+
+            .langProgress h2 {
+                border: 5px solid #22495a;
+                background-color: #9fb9bf;
+                text-align: center;
+            }
+
+            .langProgress h3 {
+                background-color: #d6c7c7;
+                text-align: center;
+            }
+    
+
+           .leftCol div {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            background-color: #eee8e8;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            padding: 5px 5px 5px 5px;
+           }
+
+           .leftCol div h3 {
+            text-decoration: underline #22495a;
+           }
+
+           .rightCol div {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            background-color: #eee8e8;
+            margin-left: 10px;
+            margin-bottom: 10px;
+            padding: 5px 5px 5px 5px;
+           }
+
+           .rightCol div h3 {
+            text-decoration: underline #22495a;
+           }
+
+           .work-history {
+            background-color: #9fb9bf;
+           }
+
+           .non-tech {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            background-color: #ddadad;
+            
+           }
+
+           .non-tech-bar {
+            border: #22495a solid 3px;
+           }
+
+           .skills {
+            background-color: #d6c7c7;
+            margin-top: 5px;
+            margin-bottom: 5px;
+           }
+
+           .skills table {
+                width: 100%;
+                text-align: center;
+           }
+
+           .skills table td {
+            height: 25px;
+            vertical-align: middle;
+           }
+
+        </style>
+    </head>
+
+<!---------------------------------------------------------------------------------------------------------------------->
+
+    <!--Main body of Webpage-->
+    <body>
+        <!--Header-->
+        <div aid="banner" class="header">
+            <h1>Skills and Credentials</h1>
+        </div>
+
+       <!-- Navigation Bar-->
+       <ul aria-label="Navigation Bar" class="navBar">
+        <li><a href="index.html" aria-controls="home">Homepage</a></li>
+        <li><a href="about.html" aria-controls="about">About Me</a></li>
+        <li><a href="projects.html" aria-controls="projects">Projects</a></li>
+        <li><a class="active" href="skills.html" aria-controls="skills">Skills</a></li>
+        <li><a href="gallery.html" aria-controls="gallery">Gallery</a></li>
+        <li class="right"><a href="contact.html" aria-controls="contact">Contact</a></li>
+    </ul>
+
+         <!-- row 1 -->
+        <div class="row">
+
+            <!-- Education -->
+            <div id="education" class="col-4 col-s-12 education">
+                <h2>Education</h2>
+                
+                <table>
+                    <tr>
+                        <td><img src="gallery/MSU.png" alt="Michigan State University Logo" > </td>
+                        <td><bold>B.S in Integrative Biology</bold></td>
+                    </tr>
+                    <tr>
+                        <td><img src="gallery/UIS.png" alt="University of illinois - Springfield Logo" class="rounded-image"> </td>
+                        <td><bold>M.S in Computer Science</bold></td>
+                    </tr>
+
+                </table>
+            </div>
+
+            <!-- Programming Experience -->
+             <div id="programming-languages" class="col-4 col-s-12 langProgress">
+                <h2>Programming Languages</h2>
+                    <h3>Java Programming</h3>
+                    <h3>Python Programming</h3>
+                    <h3>C/C++ Programming</h3>
+                    <h3>R Programming</h3>
+                    <h3>Structured Query Language (SQL)</h3>
+                    <h3>HyperText Markup Language (HTML)</h3>
+                    <h3>Stylesheet Langauge (CSS)</h3>
+             </div>
+
+            <!-- Aside Bar with Technical Skills -->
+            <div id="technical-skills" class="col-4 col-s-12 aside">
+
+                <h2>Technical Skills</h2>
+                    <h3>Data Analysis</h3>
+                    <h3>Programming in different languages</h3>
+                    <h3>Problem Solving</h3>
+                    <h3>Database design</h3>
+                    <h3>Machine Learning</h3>
+                    <h3>Linux Administration</h3>
+                    <h3>Debugging</h3>
+                    <h3>Web Design</h3>
+                    <h3>Software Development</h3>
+            </div>
+
+         </div> <!--end of row 1-->
+
+        <!-- row 2 non-technical skills-->
+        <div id="non-technical-skills" class="row non-tech-bar">
+        
+            <!-- column 1-->
+            <div class="col-4 col-s-6 non-tech">
+                <div id="non-technical" class="non-tech">
+                    <h2>Non-Technical Skills</h2>
+                </div>
+            </div>
+
+            <!-- column 2-->
+                <div class="col-8 col-s-6 skills">
+                <div id="list-of-non-technical-skills" class="skills">
+
+                    <table>
+                        <tr>
+                            <td>Time management</td>
+                            <td>Organization</td>
+                            <td>Creativity</td>
+                        </tr>
+                        <tr>
+                            <td>Adaptability</td>
+                            <td>Team Work</td>
+                            <td>Positive Attitude</td>
+                        </tr>
+                    </table>
+
+                </div>
+                </div>
+        </div>
+         
+         <!--row 3-->
+         <div id="work-history" class="row work-history">
+            
+            <!-- column 1 -->
+            <div class="col-6 col-s-12 leftCol">
+                <div id="gago-fertility-office" class="gago">
+                    <h3>Medical Technologist</h3>
+                    <h4>Gago Center for Fertility</h4>
+                    <h4>I analyzed biological samples using microscopic techniques 
+                        to assess sperm concentration, motility, and morphology, 
+                        providing fertility data to patients. I was also responsible 
+                        for washing male specimen samples with centrifugation or separation 
+                        devices to isolate the highest quality sperm for intrauterine 
+                        insemination (IUI) or in-vitro fertilization (IVF), improving the 
+                        chances of successful pregnancy. </h4>
+                        <h4>Additionally, I processed over 200 
+                        blood tests weekly to measure hormone levels in female patients, using 
+                        immunoassay devices to monitor and provide insights into their pregnancy cycles.</h4>
+                </div>
+
+                <div id="great-lakes-medical-laboratory" class="glml">
+                    <h3>Molecular Technologist</h3>
+                    <h4>Great Lakes Medical Laboratory</h4>
+                    <h4>I conducted over 800 routine medical tests daily, using extraction and 
+                        purification techniques to accurately analyze and detect various diseases, 
+                        including COVID-19, Influenza A/B, and STIs. I also contributed to the 
+                        development and implementation of new medical panel tests, providing valuable 
+                        data to expand the laboratory’s testing capabilities. Additionally, I identified 
+                        operational inefficiencies and created three new standard operating procedures 
+                        in the first quarter of 2021 to enhance reliability and improve efficiency.</h4>
+                </div>
+
+                <div id="archer-daniels-midland" class="adm">
+                    <h3>Research and Development Scientist</h3>
+                    <h4>Archer Daniels Midland</h4>
+                    <h4>
+                        I provided subject matter expertise by conducting independent 
+                        research on lecithin's thermal stability and shared key findings 
+                        with the emulsification lab to support further research. I assisted 
+                        the R&D emulsifier manager with over 10 research projects, ensuring 
+                        timely completion while building my knowledge base on lecithin products
+                        and their applications. Additionally, I conducted routine functionality 
+                        testing of lecithin products to ensure accurate, reproducible data, 
+                        helping resolve customer complaints in 2020.</h4>
+                </div>
+            </div>
+
+            <!-- column 2-->
+            <div class="col-6 col-s-12 rightCol">
+                <div id="egle" class="egle">
+                    <h3>Organic Laboratory Assistant</h3>
+                    <h4>Michigan Department of Environment, Great Lakes, and Energy</h4>
+                    <h4>I prepared over 200 soil samples daily, using extraction and sonication techniques to 
+                        efficiently extract organic compounds for analysis by chemists. I ensured 100% accuracy 
+                        in data processing by conducting rigorous quality control and reviewing reports from 
+                        environmental instruments. Additionally, I maintained and calibrated instruments daily 
+                        to ensure their accuracy and precision.</h4>
+                </div>
+
+                <div id="msu" class="msu">
+                    <h3> Undergraduate Research Assistant</h3>
+                    <h4>Michigan State University Department of Chemistry</h4>
+                    <h4>I expressed TEV protease from a bacterial genome using cloning techniques, producing the 
+                        protease on time for graduate students to use as a genomic marker in their research without
+                         delays. I documented the research in a scientific journal and presented the findings 
+                         through poster presentations to showcase its significance. Additionally, I assisted three 
+                         graduate students with their projects, broadening my knowledge of bacterial and molecular 
+                         techniques applied in research settings.</h4>
+                </div>
+
+                <div id="cypress-home-care" class="cypress">
+                    <h3>Certified Nursing Assistant</h3>
+                    <h4>Cypress Home Care</h4>
+                    <h4>As a CNA, I provided comprehensive care to a brain-injured and a paraplegic patient, 
+                        assisting with all aspects of daily living, including personal hygiene, mobility, and 
+                        feeding. I also offered emotional support and companionship, fostering a compassionate 
+                        and supportive environment to enhance the patient's overall well-being and quality of life.
+                         My role involved ensuring their comfort, safety, and dignity while maintaining close 
+                         communication with medical staff to monitor and address any health concerns.</h4>
+                </div>
+
+            </div>
+         </div>
+
+      
+        
+
+         <!--Footer-->
+         <div id="footer" class="footer">
+            <img src="gallery/—Pngtree—computer programming_5399562.png" alt="Computer Technology Icon">
+
+                <ul>
+                    <li>Rachel Ratajczak</li>
+                    <li>Chicago, IL</li>
+                    <a href="mailto:rachelratajczak@outlook.com">rachelratajczak@outlook.com</a>
+                </ul>
+            
+        </div>
+       
+    </body>
+
+</html>

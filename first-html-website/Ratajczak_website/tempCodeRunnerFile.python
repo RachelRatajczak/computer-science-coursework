@@ -1,0 +1,251 @@
+# =============================================================================
+# CDC Diabetes Health Indicators — Exploratory Data Analysis
+# Author: Rachel Ratajczak
+# Dataset: CDC Diabetes Health Indicators (Kaggle)
+# https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset
+# =============================================================================
+# This script performs an exploratory data analysis on the CDC Behavioral Risk
+# Factor Surveillance System (BRFSS) dataset to identify key clinical and
+# behavioral indicators associated with diabetes diagnosis.
+# =============================================================================
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.ticker as mtick
+import seaborn as sns
+from scipy import stats
+
+# --- Style -------------------------------------------------------------------
+sns.set_theme(style="whitegrid", palette="muted")
+plt.rcParams["figure.dpi"] = 120
+plt.rcParams["figure.figsize"] = (10, 6)
+
+# =============================================================================
+# 1. LOAD DATA
+# =============================================================================
+# Download from Kaggle:
+# https://www.kaggle.com/datasets/alexteboul/diabetes-health-indicators-dataset
+# Save as: diabetes_binary_health_indicators_BRFSS2015.csv
+
+print("=" * 60)
+print("CDC Diabetes Health Indicators — EDA")
+print("=" * 60)
+
+df = pd.read_csv("diabetes_binary_health_indicators_BRFSS2015.csv")
+
+print(f"\nDataset shape: {df.shape[0]:,} rows × {df.shape[1]} columns")
+print(f"\nColumn names:\n{list(df.columns)}")
+print(f"\nFirst 5 rows:\n{df.head()}")
+
+# =============================================================================
+# 2. DATA OVERVIEW
+# =============================================================================
+print("\n--- Data Types ---")
+print(df.dtypes)
+
+print("\n--- Missing Values ---")
+print(df.isnull().sum())
+
+print("\n--- Summary Statistics ---")
+print(df.describe().round(2))
+
+# Target distribution
+n_diabetic = int(df["Diabetes_binary"].sum())
+n_total = len(df)
+pct = n_diabetic / n_total * 100
+print(f"\nDiabetes prevalence: {n_diabetic:,} / {n_total:,} ({pct:.1f}%)")
+
+# =============================================================================
+# 3. TARGET DISTRIBUTION
+# =============================================================================
+fig, ax = plt.subplots(figsize=(7, 5))
+counts = df["Diabetes_binary"].value_counts()
+labels = ["No Diabetes", "Diabetes"]
+colors = ["#5DCAA5", "#D85A30"]
+bars = ax.bar(labels, counts.values, color=colors, width=0.5, edgecolor="white")
+
+for bar, count in zip(bars, counts.values):
+    ax.text(bar.get_x() + bar.get_width() / 2,
+            bar.get_height() + 500,
+            f"{count:,}\n({count/n_total*100:.1f}%)",
+            ha="center", va="bottom", fontsize=11)
+
+ax.set_title("Diabetes Diagnosis Distribution", fontsize=14, fontweight="bold", pad=15)
+ax.set_ylabel("Number of Respondents")
+ax.yaxis.set_major_formatter(mtick.FuncFormatter(lambda x, _: f"{int(x):,}"))
+plt.tight_layout()
+plt.savefig("01_target_distribution.png")
+plt.show()
+print("Saved: 01_target_distribution.png")
+
+# =============================================================================
+# 4. BMI DISTRIBUTION BY DIABETES STATUS
+# =============================================================================
+fig, ax = plt.subplots(figsize=(10, 5))
+for val, label, color in zip([0, 1], ["No Diabetes", "Diabetes"], ["#5DCAA5", "#D85A30"]):
+    subset = df[df["Diabetes_binary"] == val]["BMI"]
+    ax.hist(subset, bins=50, alpha=0.6, label=label, color=color, density=True)
+
+ax.set_title("BMI Distribution by Diabetes Status", fontsize=14, fontweight="bold")
+ax.set_xlabel("BMI")
+ax.set_ylabel("Density")
+ax.legend()
+plt.tight_layout()
+plt.savefig("02_bmi_distribution.png")
+plt.show()
+print("Saved: 02_bmi_distribution.png")
+
+# --- Mean BMI by group
+mean_bmi = df.groupby("Diabetes_binary")["BMI"].mean()
+print(f"\nMean BMI — No Diabetes: {mean_bmi[0]:.1f} | Diabetes: {mean_bmi[1]:.1f}")
+
+# =============================================================================
+# 5. RISK FACTOR PREVALENCE BY DIABETES STATUS
+# =============================================================================
+binary_features = [
+    "HighBP", "HighChol", "Smoker", "Stroke",
+    "HeartDiseaseorAttack", "PhysActivity", "HvyAlcoholConsump", "DiffWalk"
+]
+
+feature_labels = {
+    "HighBP": "High Blood Pressure",
+    "HighChol": "High Cholesterol",
+    "Smoker": "Smoker",
+    "Stroke": "Stroke History",
+    "HeartDiseaseorAttack": "Heart Disease",
+    "PhysActivity": "Physical Activity",
+    "HvyAlcoholConsump": "Heavy Alcohol Use",
+    "DiffWalk": "Difficulty Walking"
+}
+
+prevalence = df.groupby("Diabetes_binary")[binary_features].mean() * 100
+prevalence.index = ["No Diabetes", "Diabetes"]
+
+fig, ax = plt.subplots(figsize=(12, 6))
+x = np.arange(len(binary_features))
+width = 0.35
+
+bars1 = ax.bar(x - width/2, prevalence.loc["No Diabetes"],
+               width, label="No Diabetes", color="#5DCAA5", alpha=0.85)
+bars2 = ax.bar(x + width/2, prevalence.loc["Diabetes"],
+               width, label="Diabetes", color="#D85A30", alpha=0.85)
+
+ax.set_title("Risk Factor Prevalence by Diabetes Status", fontsize=14, fontweight="bold")
+ax.set_ylabel("Prevalence (%)")
+ax.set_xticks(x)
+ax.set_xticklabels([feature_labels[f] for f in binary_features], rotation=30, ha="right")
+ax.legend()
+ax.yaxis.set_major_formatter(mtick.FuncFormatter(lambda x, _: f"{x:.0f}%"))
+plt.tight_layout()
+plt.savefig("03_risk_factor_prevalence.png")
+plt.show()
+print("Saved: 03_risk_factor_prevalence.png")
+
+# =============================================================================
+# 6. AGE GROUP ANALYSIS
+# =============================================================================
+# Age is coded 1-13 (1=18-24, 13=80+)
+age_labels = {
+    1: "18-24", 2: "25-29", 3: "30-34", 4: "35-39", 5: "40-44",
+    6: "45-49", 7: "50-54", 8: "55-59", 9: "60-64", 10: "65-69",
+    11: "70-74", 12: "75-79", 13: "80+"
+}
+
+age_diabetes = df.groupby("Age")["Diabetes_binary"].mean() * 100
+
+fig, ax = plt.subplots(figsize=(12, 5))
+ax.plot(age_diabetes.index, age_diabetes.values,
+        marker="o", color="#D85A30", linewidth=2.5, markersize=7)
+ax.fill_between(age_diabetes.index, age_diabetes.values, alpha=0.15, color="#D85A30")
+ax.set_title("Diabetes Prevalence by Age Group", fontsize=14, fontweight="bold")
+ax.set_xlabel("Age Group")
+ax.set_ylabel("Diabetes Prevalence (%)")
+ax.set_xticks(list(age_labels.keys()))
+ax.set_xticklabels(list(age_labels.values()), rotation=45, ha="right")
+ax.yaxis.set_major_formatter(mtick.FuncFormatter(lambda x, _: f"{x:.0f}%"))
+plt.tight_layout()
+plt.savefig("04_age_prevalence.png")
+plt.show()
+print("Saved: 04_age_prevalence.png")
+
+# =============================================================================
+# 7. CORRELATION HEATMAP
+# =============================================================================
+key_features = [
+    "Diabetes_binary", "BMI", "Age", "HighBP", "HighChol",
+    "HeartDiseaseorAttack", "PhysActivity", "GenHlth",
+    "MentHlth", "PhysHlth", "DiffWalk", "Stroke"
+]
+
+corr = df[key_features].corr()
+
+fig, ax = plt.subplots(figsize=(11, 9))
+mask = np.triu(np.ones_like(corr, dtype=bool))
+sns.heatmap(corr, mask=mask, annot=True, fmt=".2f", cmap="RdYlGn",
+            center=0, linewidths=0.5, ax=ax,
+            annot_kws={"size": 9})
+ax.set_title("Feature Correlation Matrix", fontsize=14, fontweight="bold", pad=15)
+plt.tight_layout()
+plt.savefig("05_correlation_heatmap.png")
+plt.show()
+print("Saved: 05_correlation_heatmap.png")
+
+# =============================================================================
+# 8. GENERAL HEALTH RATING BY DIABETES STATUS
+# =============================================================================
+# GenHlth: 1=Excellent, 2=Very Good, 3=Good, 4=Fair, 5=Poor
+health_labels = {1: "Excellent", 2: "Very Good", 3: "Good", 4: "Fair", 5: "Poor"}
+
+genhlth = df.groupby(["GenHlth", "Diabetes_binary"]).size().unstack()
+genhlth.columns = ["No Diabetes", "Diabetes"]
+genhlth_pct = genhlth.div(genhlth.sum(axis=1), axis=0) * 100
+genhlth_pct.index = [health_labels[i] for i in genhlth_pct.index]
+
+fig, ax = plt.subplots(figsize=(9, 5))
+genhlth_pct.plot(kind="bar", ax=ax, color=["#5DCAA5", "#D85A30"],
+                 alpha=0.85, edgecolor="white", width=0.6)
+ax.set_title("General Health Rating by Diabetes Status", fontsize=14, fontweight="bold")
+ax.set_xlabel("Self-Reported General Health")
+ax.set_ylabel("Proportion (%)")
+ax.set_xticklabels(genhlth_pct.index, rotation=0)
+ax.yaxis.set_major_formatter(mtick.FuncFormatter(lambda x, _: f"{x:.0f}%"))
+ax.legend()
+plt.tight_layout()
+plt.savefig("06_general_health.png")
+plt.show()
+print("Saved: 06_general_health.png")
+
+# =============================================================================
+# 9. KEY FINDINGS SUMMARY
+# =============================================================================
+print("\n" + "=" * 60)
+print("KEY FINDINGS")
+print("=" * 60)
+
+print(f"\n1. Prevalence: {pct:.1f}% of respondents have diabetes ({n_diabetic:,}/{n_total:,})")
+
+print(f"\n2. BMI: Diabetic respondents have a higher mean BMI")
+print(f"   No Diabetes: {mean_bmi[0]:.1f} | Diabetes: {mean_bmi[1]:.1f}")
+
+top_corr = corr["Diabetes_binary"].drop("Diabetes_binary").abs().sort_values(ascending=False)
+print(f"\n3. Top correlates with diabetes diagnosis:")
+for feat, val in top_corr.head(5).items():
+    print(f"   {feat}: r={val:.3f}")
+
+bp_diab = prevalence.loc["Diabetes", "HighBP"]
+bp_no = prevalence.loc["No Diabetes", "HighBP"]
+print(f"\n4. High blood pressure prevalence:")
+print(f"   Diabetic: {bp_diab:.1f}% | Non-diabetic: {bp_no:.1f}%")
+
+chol_diab = prevalence.loc["Diabetes", "HighChol"]
+chol_no = prevalence.loc["No Diabetes", "HighChol"]
+print(f"\n5. High cholesterol prevalence:")
+print(f"   Diabetic: {chol_diab:.1f}% | Non-diabetic: {chol_no:.1f}%")
+
+print(f"\n6. Diabetes prevalence rises steadily with age,")
+print(f"   peaking in the 70-74 age group.")
+
+print("\n" + "=" * 60)
+print("All plots saved. EDA complete.")
+print("=" * 60)

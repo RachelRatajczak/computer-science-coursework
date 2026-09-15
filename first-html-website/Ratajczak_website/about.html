@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="UTF-8">
+        <title>About me</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <!-- CSS Styling-->
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                background-color: #eee8e8;
+            }
+
+            /* Prevents layout issues due to columns having floating behavior */
+            .row::after {
+                content: "";
+                clear: both;
+                display: table;
+            }
+
+            [class*="col-"] {
+                float: left;
+                padding: 15px;
+            }   
+
+            /* For mobile phones: */
+                [class*="col-"] {
+                width: 100%;
+            }
+
+            /* For tablets: */
+            @media only screen and (min-width: 768px) {
+                .col-s-1 {width: 8.33%;}
+                .col-s-2 {width: 16.66%;}
+                .col-s-3 {width: 25%;}
+                .col-s-4 {width: 33.33%;}
+                .col-s-5 {width: 41.66%;}
+                .col-s-6 {width: 50%;}
+                .col-s-7 {width: 58.33%;}
+                .col-s-8 {width: 66.66%;}
+                .col-s-9 {width: 75%;}
+                .col-s-10 {width: 83.33%;}
+                .col-s-11 {width: 91.66%;}
+                .col-s-12 {width: 100%;}
+            }
+
+          
+
+             /* For desktop: */
+            @media only screen and (min-width: 992px) {  
+                .col-1 {width: 8.33%;}
+                .col-2 {width: 16.66%;}
+                .col-3 {width: 25%;}
+                .col-4 {width: 33.33%;}
+                .col-5 {width: 41.66%;}
+                .col-6 {width: 50%;}
+                .col-7 {width: 58.33%;}
+                .col-8 {width: 66.66%;}
+                .col-9 {width: 75%;}
+                .col-10 {width: 83.33%;}
+                .col-11 {width: 91.66%;}
+                .col-12 {width: 100%;}
+            }
+
+            /* nav Bar */
+            @media screen and (max-width: 600px){
+                ul.navBar li {
+                    /* float: none;   */
+                    width: 100%;  
+                    text-align: left; 
+                }
+
+                ul.navBar li.right {
+                    float: none; /* Prevent right float on small screens */
+                }
+
+                ul.navBar li a {
+                    padding: 10px 15px;  /* Adjust padding for smaller screens */
+                }
+            }
+
+            html {
+                font-family: Georgia, 'Times New Roman', Times, serif;
+            }
+
+            .header {
+                padding: 10px;
+                color: #000000;
+                text-align: center; 
+                vertical-align: text-top; 
+                background-image: url('gallery/banner.png');
+                background-size: cover;
+                background-position: center;
+                height: 150px; 
+                display: flex; 
+                flex-direction: column; 
+                justify-content: flex-start; /* Align content to the top */
+                text-align: center; /* Center text horizontally */
+            }
+
+            ul.navBar {
+                list-style-type: none;
+                margin: 5px;
+                padding: 0;
+                overflow: hidden;
+                background-color: #ddadad;
+                flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+            }
+
+            ul.navBar li {
+                float: left;
+                flex: 1; /* Make each item take up equal space */
+                text-align: center;
+            }
+
+            ul.navBar li a{
+                display: block;
+                color: #000000;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+            ul.navBar li a:hover:not(.active){
+                background-color: #d6c7c7;
+            }
+
+            ul.navBar li a.active {
+                background-color: #d6c7c7;
+            }
+
+            ul.navBar li.right {
+                float: right;
+                order: 1; /* Move the right item to the bottom */
+                flex: 1 100%; /* Ensure it takes up full width on small screens */
+            }
+
+            .aside {
+                padding: 15px;
+                color: #19291D;
+            }
+
+            .footer {
+                background-color: #d6c7c7;
+                display: flex;
+                align-items: center; 
+                text-align: left;
+                flex-wrap: wrap; /* Allow content to wrap on smaller screens */
+                gap: 10px; /* Add space between items */
+                color: #000000;
+                text-align: left;
+                font-size: 12px;
+                padding: 15px;
+                clear: both; /*Ensures footer stays at bottom*/
+            }
+
+            .footer img {
+                max-width: 100%; /* Ensure image is responsive */
+                height: auto; /* Maintain aspect ratio */
+                width: 150px; 
+                margin-right: 10px; 
+            }
+
+            .footer ul {
+                list-style-type: none;
+            }
+
+            .container-about {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr); /* Creates 2 equal columns */
+            }
+
+            .row-spacing {
+                margin-top: 20px; 
+            }
+            
+            .columnInterests {
+                background-color: #eee8e8;
+                border: #9fb9bf 3px solid;
+                text-align: center;
+                padding: 10px;
+
+            }
+
+            .columnInterests h3 {
+                background-color: #d6c7c7;
+            }
+ 
+            .columnBooks {
+                background-color: #eee8e8;
+                border: #22495a 3px solid;
+                text-align: left;
+                padding: 10px; 
+                
+            }
+
+            .columnBooks h3 {
+                background-color: #ddadad;
+                text-align: center;
+            }
+
+           .checked {
+            color: #ddadad;
+           }
+           
+        </style>
+
+    </head>
+
+   <!-- Main body of webpage-->
+    <body>
+        
+        <!--Header-->
+        <div id="banner" class="header">
+            <h1>About Me</h1>
+        </div>
+
+       <!-- Navigation Bar-->
+       <ul aria-label="Navigation Bar" class="navBar">
+            <li><a href="index.html" aria-controls="home">Homepage</a></li>
+            <li><a class="active" href="about.html" aria-controls="about">About Me</a></li>
+            <li><a href="projects.html" aria-controls="projects">Projects</a></li>
+            <li><a href="skills.html" aria-controls="skills">Skills</a></li>
+            <li><a href="gallery.html" aria-controls="gallery">Gallery</a></li>
+            <li class="right"><a href="contact.html" aria-controls="contact">Contact</a></li>
+        </ul>
+
+        <!-- row 1 -->
+        <div class="row">
+
+            <!-- Text Body -->
+            <div id="text-body" class="col-9 col-s-6 hero">
+                <h3>Thank you for exploring my website!</h3>
+                <p> This is the first website I created from scratch using 
+                    HyperText Markup Language (HTML) and styled with Cascading Stylesheets (CSS).
+                </p>
+                <p>Another project I am working on is a database design project for a recipe book. This project takes inspiration from 
+                    Pinterest, where users can post recipes and interact with other users posts. This summer, I plan to take this database 
+                    design and implement it into a C.R.U.D (create, read, update, delete) project where the website will be deployed online 
+                    and users can share and save recipes with one another. 
+                </p>
+                <p>In the field of biology, I showcased strong skills in research, problem-solving, and data analysis. A significant
+                     portion of my work was as a molecular technologist. During the pandemic, I contributed to a COVID diagnostic 
+                     laboratory, where I analyzed hundreds of samples daily. I consistently maintained attention to detail while 
+                     interpreting and reporting results.
+                </p>
+                <p>As I transition into computer science, I look forward to combining my technical and analytical skills with my 
+                    creativity to contribute to meaningful projects.</p>
+                
+                
+            </div>
+
+
+            <!-- Aside Bar with Photo -->
+            <div id="aside-photo" class="col-3 col-s-6 aside">
+                <img 
+                    align="center"
+                    src="gallery/msugrad.jpg" alt="Professional photo of Rachel" width="100%">
+            </div>
+
+        </div> <!-- end of row 1-->
+
+        <!-- container page scroll for website content -->
+        
+            <!-- row 1-->
+            <div id="technology-interests" class="row row-spacing">
+
+                <!-- column 1 -->
+                <div id="column-interests" class="col-6 col-s-12 columnInterests ">
+                    <h2>My Technology Interests</h2>
+                        <h3>Healthcare data analysis</h3>
+                        <h3>Software engineering</h3>
+                        <h3>Bioinformatics</h3>
+                        <h3>Machine Learning</h3>
+                        <h3>Data Science</h3>
+                        <h3>Web-based development</h3>
+                        <h3>Product development technology</h3>
+
+                    <h2> My Other Interests</h2>
+                        <h3>Dancing</h3>
+                        <h3>Riding my bike</h3>
+                        <h3>Reading thriller novels</h3>
+                        <h3>Yoga & meditation</h3>
+                        <h3>Playing with my kittens</h3>
+                    
+                    </div>
+                   
+                
+                
+                <!-- column 2-->
+                <div id="column-books" class="col-6 col-s-12 columnBooks">
+                    <h3>Ratings of Recent Books that I Have Read</h3>
+
+                    <h5><i>Harry Potter and the Goblet of Fire</i> by J.K. Rowling</h5>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+
+                    <h5><i>Every Heart a Doorway</i> by Seanan McGuire</h5>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+
+                    <h5><i>The Devil in the White City</i> by Erik Larson</h5>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+
+                    <h5><i>Never Lie</i> by Frieda McFadden</h5>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+
+                    <h5><i>The Housemaid's Secret (The Housemaid, #2)</i> by Frieda McFadden</h5>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+
+                    <h5><i>Harry Potter and the Prisoner of Azkaban</i> by J.K. Rowling</h5>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+
+                    <h5><i>The Silent Patient</i> by Alex Michaelides</h5>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+
+
+                </div>
+
+            </div> <!-- end of row 1-->
+
+        
+
+          <!--Footer-->
+        <div id="footer" class="footer">
+            <img src="gallery/—Pngtree—computer programming_5399562.png" alt="Computer Technology Icon">
+
+                <ul>
+                    <li>Rachel Ratajczak</li>
+                    <li>Chicago, IL</li>
+                    <a href="mailto:rachelratajczak@outlook.com">rachelratajczak@outlook.com</a>
+                </ul>
+            
+        </div>
+
+    </body>
+
+</html>

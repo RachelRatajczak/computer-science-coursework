@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Contact</title>
+
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                background-color: #eee8e8;
+            }
+
+            /* Prevents layout issues due to columns having floating behavior */
+            .row::after {
+                content: "";
+                clear: both;
+                display: table;
+            }
+
+
+            [class*="col-"] {
+                float: left;
+                padding: 15px;
+                /* border: 1px solid green; */
+            }   
+
+            /* For mobile phones: */
+                [class*="col-"] {
+                width: 100%;
+            }
+
+            /* For tablets */
+            @media only screen and (min-width: 768px) {
+                .col-s-1 {width: 8.33%;}
+                .col-s-2 {width: 16.66%;}
+                .col-s-3 {width: 25%;}
+                .col-s-4 {width: 33.33%;}
+                .col-s-5 {width: 41.66%;}
+                .col-s-6 {width: 50%;}
+                .col-s-7 {width: 58.33%;}
+                .col-s-8 {width: 66.66%;}
+                .col-s-9 {width: 75%;}
+                .col-s-10 {width: 83.33%;}
+                .col-s-11 {width: 91.66%;}
+                .col-s-12 {width: 100%;}
+            }
+
+             /* For desktop: */
+            @media only screen and (min-width: 992px) {
+                .col-1 {width: 8.33%;}
+                .col-2 {width: 16.66%;}
+                .col-3 {width: 25%;}
+                .col-4 {width: 33.33%;}
+                .col-5 {width: 41.66%;}
+                .col-6 {width: 50%;}
+                .col-7 {width: 58.33%;}
+                .col-8 {width: 66.66%;}
+                .col-9 {width: 75%;}
+                .col-10 {width: 83.33%;}
+                .col-11 {width: 91.66%;}
+                .col-12 {width: 100%;}
+            }
+
+            /* nav Bar */
+            @media screen and (max-width: 600px){
+                ul.navBar li {
+                    float: none;  /* Make navbar items stack vertically */
+                    width: 100%;  /* Ensure they take full width */
+                    text-align: left;  /* Align text to the left for better readability */
+                }
+
+                ul.navBar li.right {
+                    float: none; /* Prevent right float on small screens */
+                }
+
+                ul.navBar li a {
+                    padding: 10px 15px;  /* Adjust padding for smaller screens */
+                }
+            }
+            
+
+            html {
+                font-family: Georgia, 'Times New Roman', Times, serif;
+            }
+
+            .header {
+                padding: 10px;
+                color: #000000;
+                text-align: center; /* Center text horizontally */
+                vertical-align: text-top; /* This is generally for inline elements, not necessary with Flexbox */
+                background-image: url('gallery/banner.png');
+                background-size: cover;
+                background-position: center;
+                height: 150px; /* Set the height of the header */
+                display: flex; /* Use Flexbox */
+                flex-direction: column; /* Ensure the elements are stacked vertically */
+                justify-content: flex-start; /* Align content to the top */
+                text-align: center; /* Center text horizontally */
+            }
+
+            ul.navBar {
+                list-style-type: none;
+                margin: 5px;
+                padding: 0;
+                overflow: hidden;
+                background-color: #ddadad;
+            }
+
+            ul.navBar li{float: left;}
+
+            ul.navBar li a{
+                display: block;
+                color: #000000;
+                text-align: center;
+                padding: 14px 16px;
+                text-decoration: none;
+            }
+
+            ul.navBar li a:hover:not(.active){
+                background-color: #d6c7c7;
+            }
+
+            ul.navBar li a.active {
+                background-color: #d6c7c7;
+            }
+
+            ul.navBar li.right {
+                float: right;
+            }
+
+            .aside {
+                border: #22495a 5px solid;
+                padding: 15px;
+                color: #19291D;
+                text-align: left;
+                font-size: 14px;
+                box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+            }
+
+            .aside h2{
+                border: 5px solid #19291D;
+                background-color: #87AA90;
+                text-align: center;
+            }
+
+            .footer {
+                background-color: #d6c7c7;
+                display: flex;
+                align-items: center; /* Vertically align the image and text */
+                text-align: left;
+                flex-wrap: wrap; /* Allow content to wrap on smaller screens */
+                gap: 10px; /* Add space between items */
+                color: #000000;
+                text-align: left;
+                font-size: 12px;
+                padding: 15px;
+                clear: both; /*Ensures footer stays at bottom*/
+            }
+
+            .footer img {
+                max-width: 100%; /* Ensure image is responsive */
+                height: auto; /* Maintain aspect ratio */
+                width: 150px; /* Optional: set a maximum width for image (adjust as needed) */
+                margin-right: 10px; /* Space between image and text */
+            }
+
+            .footer ul {
+                list-style-type: none;
+            }
+
+            .photo {
+                float: left;
+            }
+
+            .text {
+                /* text-align: center; */
+                padding-top: 100px;
+                color: #22495a;
+                float: left;
+            }
+
+        </style>
+    </head>
+
+<!---------------------------------------------------------------------------------------->
+
+    <!--Main Body of Webpage-->
+    <body>
+        <!-- Header-->
+        <div id="banner" class="header">
+            <h1>Contact</h1>
+        </div>
+
+       <!-- Navigation Bar-->
+       <ul aria-label="Navigation Bar" class="navBar">
+        <li><a  href="index.html" aria-controls="home">Homepage</a></li>
+        <li><a href="about.html" aria-controls="about">About Me</a></li>
+        <li><a href="projects.html" aria-controls="projects">Projects</a></li>
+        <li><a href="skills.html" aria-controls="skills">Skills</a></li>
+        <li><a href="gallery.html" aria-controls="gallery">Gallery</a></li>
+        <li class="right"><a class="active" href="contact.html" aria-controls="contact">Contact</a></li>
+    </ul>
+
+        <!-- row 1-->
+        <div is="contact" class="row">
+
+            <!-- image column -->
+             <div class="col-5 col-s-7 photo">
+                <img 
+                src="gallery/letsconnect.png" alt="Photo of Rachel at desk connecting to socials" width="100%">
+             </div>
+
+            <!-- text body column-->
+             <div class="col-7 col-s-5 text">
+                <h2>Let's Connect</h2>
+
+                <h4> <a href="mailto:rachelratajczak@outlook.com">rachelratajczak@outlook.com</a></h4>
+                <h4>LinkedIn: <a href="https://www.linkedin.com/in/rachelratajczak/">rachelratajczak</a></h4>
+                <h4>Phone: 586-292-8161</h4>
+             </div>
+
+        </div>
+
+        <!--Footer-->
+        <div id="footer" class="footer">
+            <img src="gallery/—Pngtree—computer programming_5399562.png" alt="Computer Technology Icon">
+
+                <ul>
+                    <li>Rachel Ratajczak</li>
+                    <li>Chicago, IL</li>
+                    <li><a href="mailto:rachelratajczak@outlook.com">rachelratajczak@outlook.com</a></li>
+                </ul>
+            
+        </div>
+
+    </body>
+
+</html>
